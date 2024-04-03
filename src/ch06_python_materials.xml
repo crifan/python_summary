@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch06_python_materials">
+<title>Python相关资料</title>
+
+<para>此处记录一些不错的Python相关的资料，供需要时参考：</para>
+<orderedlist>
+    <listitem><link xl:href="http://woodpecker.org.cn/abyteofpython_cn/chinese/">简明Python教程</link>
+        <para>Swaroop, C. H. 著，>沈洁元  译</para>
+        <para>特点：内容很全。</para>
+    </listitem>
+
+    <listitem><emphasis>关于python的中文文档</emphasis>
+        <para>这里：<link xl:href="http://www.elias.cn/Python/HomePage" />介绍了很多的资源。其中就有<link xl:href="http://wiki.woodpecker.org.cn/moin/March_Liu/PyTutorial">python教程的中文版</link></para>
+    </listitem>
+</orderedlist>
+
+</chapter>

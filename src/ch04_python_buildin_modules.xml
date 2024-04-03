@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch04_python_buildin_modules">
+<title>python内置模块学习心得</title>
+
+<para>此处整理一些，Python内置的各种模块的使用心得：</para>
+<para></para>
+
+<sect1 xml:id="python_re"><title>Python中re模块</title>
+    <para>Python中的re模块的相关使用心得，请参见</para>
+    <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_re/release/html/python_topic_re.html">Python专题教程：正则表达式re模块详解</link></para>
+</sect1>
+
+<sect1 xml:id="python_json"><title>Python中的json</title>
+    <para>相关内容已移至：</para>
+    <para><link xl:href="http://www.crifan.com/files/doc/docbook/json_tutorial/release/html/json_tutorial.html#python_json">Python中处理JSON字符串</link></para>
+</sect1>
+
+<sect1 xml:id="python_script_para"><title>Python参数处理模块：OptionParser和argparse</title>
+    <sect2 xml:id="python_optionparser"><title>利用OptionParser库中的add_option添加脚本参数和帮助信息</title>
+        <para>在写脚本的时候，可以利用add_option去添加对应的参数解析以及帮助信息，而剩下的事情，如何去解析对应的参数和显示帮助信息，都是由OptionParser自动完成了。</para>
+        <para>参考如下内容：</para>
+        <programlisting language="python" >
+from optparse import OptionParser
+ 
+def main():
+    #main procedure begin
+    parser = OptionParser()
+    parser.add_option("-s","--source",action="store", type="string",dest="srcURL",help="source msn/live space address")
+    parser.add_option("-f","--startfrom",action="store", type="string",dest="startfromURL",help="a permalink in source msn/live space address for starting with, if this is specified, srcURL will be ignored.")
+    parser.add_option("-x","--proxy",action="store",type="string",dest="proxy",help="http proxy server, only for connecting live space.I don't know how to add proxy for metaWeblog yet. So this option is probably not useful...")
+ 
+    (options, args) = parser.parse_args()
+    #export all options variables
+    for i in dir(options):
+        exec i+" = options."+i
+    #add proxy
+    if proxy:
+        XXX
+    if startfromURL :
+        XXX
+    elif srcURL:
+        XXX
+    else:
+        logging.error("错误XXX")
+        sys.exit(2)
+        </programlisting>
+        <para>然后我们就可以在运行脚本的时候，添加参数了，比如：</para>
+        <screen>BlogsToWordpress.py -s http://hi.baidu.com/recommend_music</screen>
+        <para>想要查看帮助信息，就是常见的-h或–help：</para>
+        <screen>BlogsToWordpress.py -h</screen>
+        <para>更多例子和解释，可以参考这里：</para>
+        <para><link xl:href="http://www.cnblogs.com/captain_jack/archive/2011/01/11/1933366.html">python模块学习——optparse</link></para>
+    </sect2>
+
+    <sect2 xml:id="python_argparse"><title>官方建议放弃OptionParser，使用新的模块：argparse</title>
+        <para>根据官网的解释，其实optparse已废弃，建议使用最新的更好用的argparse</para>
+        <para>此处之所以还继续介绍optparse主要是由于之前还是一直用的是optparse，而argparse自己只是试用过，不是很熟悉。</para>
+        <para>在可以看懂官网的例子的前提下，还是建议使用argparse</para>
+    </sect2>
+</sect1>
+
+<sect1 xml:id="python_string_related"><title>Python中和字符串相关的内容（字符编码，str，Unicode等）的心得</title>
+    <para>字符编码相关的内容，已整理至：</para>
+    <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_str_encoding/release/htmls/">Python专题教程：字符串和字符编码</link></para>
+    <para></para>
+</sect1>
+
+</chapter>

@@ -1,0 +1,468 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="python_learn_summary">
+<title>python学习心得和体会</title>
+
+<para>在看此部分内容之前，推荐一个不错的关于Python的基础知识的教程:<xref linkend="ref.python_basics_zhcn" />，如果遇到不懂的，先去看看该教程，说不定可以找到答案。</para>
+<para>更多Python的内容，可以去这里找到：<link xl:href="http://www.crifan.com/category/work_and_job/script_language/python/">Python</link></para>
+<para>以后有空的话，会慢慢的把其中的相关内容整理到此文档中的。</para>
+
+<para>下面是一些自己在学习，使用Python期间的各种心得：</para>
+
+<sect1 xml:id="pyhon_lan_self_summary"><title>关于Python语言本身的一些心得</title>
+    <sect2 xml:id="learn_python_modules"><title>学习python的本质就是学习对应的各种模块的用法</title>
+        <para>python中有很多其他的库，帮你实现各种需要的功能，而你要做的事情，就是import对应的库，然后调用对应的函数即可。</para>
+        <para>而利用python去编程，去实现一定的功能，更多的层面上，除了学习完python的基本语法之后，就是对各种库，各种模块的如何使用上了，可以极大地提高你做事情的效率。</para>
+    </sect2>
+    
+    <sect2 xml:id="python_code_format"><title>Python代码的格式化</title>
+        <para>python中，没有（类似于其他语言可用的，比如SourceFormatX之类的）代码格式话工具，即意味着，你无法用工具，打开python文件，直接点击某个按钮，就可以帮你全部格式化好了。</para>
+        <para>只能通过手工去格式化你的python代码</para>
+        <para>所谓手工，那就是，把属于每个函数（def关键字）所属代码，按照自己对代码的内在逻辑的理解，去一行行的缩进</para>
+        <para>此工作，目前只能手工做，好像也没有其他更加方便的方法。</para>
+        <para>单独针对手工一行行的处理python代码，不同的工具中，实现的效率也会不同。</para>
+        <para>推荐使用Notepad++，因为此软件有很多方便你格式化Python代码的功能：</para>
+        <itemizedlist>
+            <listitem>可以显示所有特殊字符，包括空格，TAB键，行尾符等
+                <para>具体参考：<link xl:href="http://www.crifan.com/files/doc/docbook/crifan_rec_soft/release/html/crifan_rec_soft.html#npp_func_show_special_char">Notepad++支持显示回车符，换行符，TAB键，行首，行尾等特殊字符</link></para>
+            </listitem>
+            <listitem>支持将TAB键自动转换为空格
+                <para>目的在于，对于Python这样的语言，是靠缩进来决定代码逻辑的，所以对于缩进，TAB键和（4个连续的）空格，两者之间不是等价的，会产生语法错误的。</para>
+                <para>此时就可以利用Notepad++的，将TAB键自动转为（默认为4个，可以自定义个数）空格，实现很方便的代码格式化。</para>
+                <para>具体参考：<link xl:href="http://www.crifan.com/files/doc/docbook/crifan_rec_soft/release/html/crifan_rec_soft.html#npp_func_space_replace_tab">Notepad++支持用空格取代TAB键</link></para>
+            </listitem>
+        </itemizedlist>
+        <para>总之，关于Python代码的格式化，需要手动处理Python代码，而用Notepad++去处理，可以极大地提高效率。</para>
+    </sect2>
+</sect1>
+
+<sect1 xml:id="pyhon_basic_summary"><title>Python的基本知识方面的心得</title>
+    <sect2 xml:id="compile_pyc_from_py"><title>将py文件编译成pyc</title>
+            <para>参考<link xl:href="http://hi.baidu.com/%C1%AC%BF%B419%BC%AF/blog/item/2e3197dd8c209be476c63825.html">这里</link>，启动Python的IDE – IDLE (Python GUI)</para>
+            <para>然后在里面输入：</para>
+            <programlisting>import py_compile</programlisting>
+            <para>回车（<phrase role="symbol">&crarr;</phrase>）后再输入：</para>
+            <programlisting>py_compile.compile(r"E:\dev_root\Python25\Lib\sgmllib.py")</programlisting>
+            <para>就可以将对应的py文件编译成pyc了，生成的<filename>sgmllib.pyc</filename>在同目录下。</para>
+    </sect2>
+    
+    <sect2 xml:id="var_non_editable_in_loop"><title>for循环中的变量是只读的，不可修改</title>
+        <para>在使用for循环时，要注意其所得的单个变量，是只读的，不能修改。</para>
+        <para>想要修改其值的话，只能借助其他变量实现。</para>
+        <para>示例代码如下：</para>
+        <programlisting language="python">
+<![CDATA[
+for singleContent in soupContents: #singleContent is BeautifulSoup.Tag
+    ......
+    if(recursive):
+        ......
+        filteredSingleContent = singleContent; # here must use another tmp value to store changed value
+        filteredSubContentList = removeSoupContentsTagAttr(filteredSingleContent.contents, ......);
+        ......
+        filteredSingleContent.contents = filteredSubContentList; # here if use singleContent.contents = filteredSubContentList will cause error !!!
+        #logging.debug("[%d] after filter, sub contents=%s", currentLevel, filteredSingleContent);
+        filtedContents.append(filteredSingleContent);
+    else:
+        ......
+]]>
+        </programlisting>
+        <para></para>
+    </sect2>
+</sect1>
+
+<sect1 xml:id="python_self_libs"><title>Python中自带模块的使用心得</title>
+    <para>下面再针对Python中自带的不同的模块，总结一下使用心得和注意事项：</para>
+    
+    <sect2 xml:id="python_re"><title>Python中re模块</title>
+        <para>Python中的re模块的相关使用心得，请参见<link xl:href="http://www.crifan.com/files/doc/docbook/regular_expression/release/html/regular_expression.html#python_re">Python中的正则表达式re模块的学习心得</link></para>
+    </sect2>
+    
+    <sect2 xml:id="python_json"><title>Python中的json</title>
+        <sect3><title>json中如果内容中包含单引号或双引号如何处理</title>
+            <para>如果json字符串的内容中包含单引号或双引号，直接用json.loads去转换的话，则会导致出错。</para>
+            <para>解决办法是，把所含的（用双引号括起来的）内容中单引号或双引号前，加上反斜杠即可。</para>
+            <para>以双引号为例，即，从<screen>"key":"value incldue " "</screen>变为<screen>"key":"value incldue \" "</screen></para>
+        </sect3>
+
+        <sect3 xml:id="json_dict_key_parenthesis"><title>字典类型的json字符串中的key一定要用双引号括起来</title>
+            <para>json字符串是字典变量类型的字符串的时候，对应字典中的key部分，是需要用双引号括起来的，否则json.loads会出错的。</para>
+            <para>详情参看：<link xl:href="http://www.crifan.com/python_json_loads_valueerror_expecting_property_name/">【已解决】Python中用json.loads去解析字符串出错：ValueError: Expecting property name: line 1 column 51 (char 51)</link></para>
+            <para></para>
+        </sect3>
+
+        <sect3 xml:id="json_dict_key_single_quote"><title>字典类型的json字符串中的key要用双引号，而不能用单引号</title>
+            <para>json字符串是字典变量类型的字符串的时候，对应字典中的key部分，注意是用双引号括起来，而不能是单引号，否则也是会导致json.loads出错的。</para>
+            <para>比如对于字符串变量timeFillingInfoJson：</para>
+            <screen>{'2012' : {"month" : [0,0,0,0,0,0,0,-1,-1,-1,-1,-1],"totalCount" : '0'},'2011' : {"month" : [0,0,0,0,0,0,0,0,0,0,0,0],"totalCount" : '0'},'2010' : {"month" : [5,21,22,20,11,7,8,11,12,0,0,1],"totalCount" : '118'},'2009' : {"month" : [0,13,9,20,63,32,35,32,24,39,15,6],"totalCount" : '288'},'2008' : {"month" : [6,40,83,66,35,35,11,5,3,4,0,1],"totalCount" : '289'},'2007' : {"month" : [-1,-1,-1,6,0,19,10,8,3,41,47,44],"totalCount" : '178'}}</screen>
+            <para>用代码：</para>
+            <programlisting language="python">
+timeFillingInfoDict = json.loads(timeFillingInfoJson);
+logging.info("timeFillingInfoDict=%s", timeFillingInfoDict);
+            </programlisting>
+            <para>去解析会出错：</para>
+            <screen>ValueError: Expecting property name: line 1 column 1 (char 1)</screen>
+            <para>而把单引号替换为双引号后：</para>
+            <screen>{"2012" : {"month" : [0,0,0,0,0,0,0,-1,-1,-1,-1,-1],"totalCount" : "0"},"2011" : {"month" : [0,0,0,0,0,0,0,0,0,0,0,0],"totalCount" : "0"},"2010" : {"month" : [5,21,22,20,11,7,8,11,12,0,0,1],"totalCount" : "118"},"2009" : {"month" : [0,13,9,20,63,32,35,32,24,39,15,6],"totalCount" : "288"},"2008" : {"month" : [6,40,83,66,35,35,11,5,3,4,0,1],"totalCount" : "289"},"2007" : {"month" : [-1,-1,-1,6,0,19,10,8,3,41,47,44],"totalCount" : "178"}}</screen>
+            <para>就可以正常解析，得到对应的dict变量了：</para>
+            <screen>timeFillingInfoDict={u'2007': {u'totalCount': u'178', u'month': [-1, -1, -1, 6, 0, 19, 10, 8, 3, 41, 47, 44]}, u'2008': {u'totalCount': u'289', u'month': [6, 40, 83, 66, 35, 35, 11, 5, 3, 4, 0, 1]}, u'2009': {u'totalCount': u'288', u'month': [0, 13, 9, 20, 63, 32, 35, 32, 24, 39, 15, 6]}, u'2011': {u'totalCount': u'0', u'month': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, u'2010': {u'totalCount': u'118', u'month': [5, 21, 22, 20, 11, 7, 8, 11, 12, 0, 0, 1]}, u'2012': {u'totalCount': u'0', u'month': [0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1]}}</screen>
+            <note><title>dict类型json字符串中的key，如果用单引号，是不行的</title>
+                <para>另外，也去尝试过了，把双引号都替换为单引号：</para>
+                <programlisting language="python">
+timeFillingInfoJson = timeFillingInfoJson.replace('"', "'");
+timeFillingInfoDict = json.loads(timeFillingInfoJson);
+logging.info("timeFillingInfoDict=%s", timeFillingInfoDict);
+                </programlisting>
+                <para>结果同样会出错的：</para>
+                <screen>ValueError: Expecting property name: line 1 column 1 (char 1)</screen>
+                <para>所以，看来dict的json字符串中的key，必须是用双引号括起来的，不能少了双引号，也不能是单引号，<emphasis>只能是双引号</emphasis>。</para>
+            </note>
+        </sect3>
+    </sect2>
+    
+    <sect2 xml:id="python_script_para"><title>Python参数处理模块：OptionParser和argparse</title>
+        <sect3 xml:id="python_optionparser"><title>利用OptionParser库中的add_option添加脚本参数和帮助信息</title>
+            <para>在写脚本的时候，可以利用add_option去添加对应的参数解析以及帮助信息，而剩下的事情，如何去解析对应的参数和显示帮助信息，都是由OptionParser自动完成了。</para>
+            <para>参考如下内容：</para>
+            <programlisting language="python" >
+from optparse import OptionParser
+ 
+def main():
+    #main procedure begin
+    parser = OptionParser()
+    parser.add_option("-s","--source",action="store", type="string",dest="srcURL",help="source msn/live space address")
+    parser.add_option("-f","--startfrom",action="store", type="string",dest="startfromURL",help="a permalink in source msn/live space address for starting with, if this is specified, srcURL will be ignored.")
+    parser.add_option("-x","--proxy",action="store",type="string",dest="proxy",help="http proxy server, only for connecting live space.I don't know how to add proxy for metaWeblog yet. So this option is probably not useful...")
+ 
+    (options, args) = parser.parse_args()
+    #export all options variables
+    for i in dir(options):
+        exec i+" = options."+i
+    #add proxy
+    if proxy:
+        XXX
+    if startfromURL :
+        XXX
+    elif srcURL:
+        XXX
+    else:
+        logging.error("错误XXX")
+        sys.exit(2)
+            </programlisting>
+            <para>然后我们就可以在运行脚本的时候，添加参数了，比如：</para>
+            <screen>BlogsToWordpress.py -s http://hi.baidu.com/recommend_music</screen>
+            <para>想要查看帮助信息，就是常见的-h或–help：</para>
+            <screen>BlogsToWordpress.py -h</screen>
+            <para>更多例子和解释，可以参考这里：</para>
+            <para><link xl:href="http://www.cnblogs.com/captain_jack/archive/2011/01/11/1933366.html">python模块学习——optparse</link></para>
+        </sect3>
+
+        <sect3 xml:id="python_argparse"><title>官方建议放弃OptionParser，使用新的模块：argparse</title>
+            <para>根据官网的解释，其实optparse已废弃，建议使用最新的更好用的argparse</para>
+            <para>此处之所以还继续介绍optparse主要是由于之前还是一直用的是optparse，而argparse自己只是试用过，不是很熟悉。</para>
+            <para>在可以看懂官网的例子的前提下，还是建议使用argparse</para>
+        </sect3>
+    </sect2>
+    
+    <sect2 xml:id="python_string_related"><title>Python中和字符串相关的内容（字符编码，str，Unicode等）的心得</title>
+        <sect3 xml:id="python_unicodeencodeerror"><title>Python中的 UnicodeEncodeError</title>
+            <para>Python中很容易出现一些关于编码方面的错误。</para>
+            <para>其中，最常见的一个就是UnicodeEncodeError</para>
+            <para>下面，总结一下各种出现的原因，以及相应的解决办法。</para>
+    
+            <sect4 xml:id="python_uni_error_while_print"><title>如果打印显示终端中字符编码不支持所打印字符的话，也会出现错误UnicodeEncodeError</title>
+                <para>Python中的编码问题，的确很容易让人头疼。</para>
+                <para>之前已经遇到过N个类似的UnicodeEncodeError，并且也都一一解决了。</para>
+                <para>但是今天又遇到一个：</para>
+                <screen>UnicodeEncodeError: 'gbk' codec can't encode character u'\u2665' in position 160: illegal multibyte sequence</screen>
+                <para>最后发现，原来是在用：<programlisting language="python">print "footerUni=",footerUni;</programlisting>去打印此unicode类型的字符串footerUni，由于其中包含一些字符，其无法在当前命令行下的GBK编码环境中找到对应字符，所以才报了以上的错误的。</para>
+                <para>所以，真的是，对于Python中的字符编码方面，连使用print都要小心。</para>
+                <para>在这点上，真的很让人无语。。。</para>
+            </sect4>
+            
+            <sect4 xml:id="unicodeencodeerror_zhcn_zhtw"><title>在处理中文简体和中文繁体的的时候，使用目标编码中不存在的中文字符，也会导致UnicodeEncodeError</title>
+                <para>在一个UTF-8的Python文件中，有如下代码：</para>
+                <programlisting language="python">
+str = '电脑';
+......
+goods.append(urllib.quote(str.decode('utf-8').encode('big5')));
+                </programlisting>
+                <para>此时，就会出现错误：</para>
+                <screen>UnicodeEncodeError: 'big5' codec can't encode character u'\u7535' in position 0: illegal multibyte sequence</screen>
+                <para>此问题的原因在于，对于所输入的str类型的中文简体字符”电脑“来说，虽然通过str.decode('utf-8')可以获得了Unicode的中文简体字符”电脑“</para>
+                <para>但是将此Unicode类型的，简体中文字符”电脑“，去进行BIG5编码的时候，结果由于BIG5编码中，根本就不存在上述这两个简体中文的汉字”电脑“，由此出现上述UnicodeEncodeError的错误。</para>
+                <para>即，无法将简体中文的”电脑“，从Unicode转换为BIG5编码，因为BIG5编码字符集中，就不存在”电脑“这两个字符。</para>
+                <para>对此问题，详细去探究，就可以更了解中文简体和中文繁体之间的差别。</para>
+                <para>此处，先来明确一下我们的目标，即，希望是在BIG5编码中，能显示”电脑“这两个字符。</para>
+                <para>而对于BIG5编码所对应的所有字符，可以去<xref linkend="ref.big5_tw_code_table" />中查找</para>
+                <para>我们会发现，BIG5编码中，根据就找不到这两个字符。</para>
+                <para>那如何才能让”电脑“这两个字符，在繁体中显示呢？</para>
+                <para>那就需要，将中文简体的”电脑“，去先转换为对应的中文繁体字，然后就可以编码为BIG5，可以显示了。</para>
+                <para>而关于中文简体和中文繁体之间的转换，可以去这里：<xref linkend="ref.zhcn_zhtw_conversion"/></para>
+                <para>进入该网站后，输入”电脑“，然后点击”TW Unicode“或”TW BIG“，就可以转换为对应的繁体字”電腦“了。</para>
+                <para>很明显，”電腦“这两个中文繁体字，那肯定是能在<xref linkend="ref.big5_tw_code_table" />中找到的</para>
+                <para>而对应的，这几个中文字符所对应的Unicode的值，可以去<xref linkend="ref.unicode_lookup" />查到。</para>
+                <para>此处整理如下：</para>
+                <table xml:id="tbl.zh_computer_uni_val"><title>”电脑“和”電腦“所对应的Unicode值</title>
+                    <tgroup cols="5">
+                        <colspec colnum="1" colname="col1" colwidth="2*" />
+                        <colspec colnum="2" colname="col2" colwidth="1*" />
+                        <colspec colnum="3" colname="col3" colwidth="1*" />
+                        <colspec colnum="4" colname="col4" colwidth="1*" />
+                        <colspec colnum="5" colname="col5" colwidth="1*" />
+                        
+                        <thead>
+                            <row><entry>Unicode character</entry><entry>Oct</entry><entry>Dec</entry><entry>Hex</entry><entry>HTML</entry></row>
+                        </thead>
+                        
+                        <tbody>
+                            <row><entry>电 cjk unified ideograph 7535</entry><entry>072465</entry><entry>30005</entry><entry>0x7535</entry><entry>&amp;#30005;</entry></row>
+                            <row><entry>脑 cjk unified ideograph 8111</entry><entry>0100421</entry><entry>33041</entry><entry>0x8111</entry><entry>&amp;#33041;</entry></row>
+                            <row><entry>電 cjk unified ideograph 96fb</entry><entry>0113373</entry><entry>38651</entry><entry>0x96FB</entry><entry>&amp;#38651;</entry></row>
+                            <row><entry>腦 cjk unified ideograph 8166</entry><entry>0100546</entry><entry>33126</entry><entry>0x8166</entry><entry>&amp;#33126;</entry></row>
+                        </tbody>
+                    </tgroup>
+                </table>
+                <para>此处，“电”所对应的Unicode值为7535，Unicode写法为\u7535，就是对应着上述出错的内容中所指示的，</para>
+                <para>BIG5编码器，无法对于Unicode为\u7535的字符进行编码，即BIG5无法编码“电”，因为其本身就没这个字符。</para>
+                <para>对应的，如果用GB2312/GBK/GB18030去编码“电”，那么肯定是可以的，但是肯定也是无法编码“電”的。</para>
+                <para>所以，对于中文简体和繁体之间，如果想要正确显示，需要先转换为对应繁体或简体，然后才能用正确的编码，去解析其所支持的字符的。</para>
+                <para>而有人看到这里，可能会疑惑了，因为比如对于有些中文字符，比如“手机”，</para>
+                <para>虽然没有去用什么简体转换为繁体，而直接用上述BIG5去编码，会发现程序可以正常执行，不会出现那个UnicodeEncodeError的</para>
+                <para>对此，你去<xref linkend="ref.zhcn_zhtw_conversion"/>中搜一下“手”和“机”这两个汉字，发现BIG5编码中，也的确是存在这两个汉字的，</para>
+                <para>所以原因就很清楚了：对于有些字符，中文简体和中文繁体的写法，是一样的，所以才可以在GB212/GBK/GB18030和BIG5之间来回转换，而不会出现问题。</para>
+                <para>换句话说，如果你想要在BIG5编码中显示（编码）某个中文简体的话，那前提要确保该字符是可以在<xref linkend="ref.zhcn_zhtw_conversion"/>中能查找到的。</para>
+                <para>否则，说明BIG5中没有改汉字，需要用到<xref linkend="ref.zhcn_zhtw_conversion"/>去先进行简繁体转换，得到转换后的繁体字后，才能得到BIG5编码的字符，用BIG5去编解码，去显示对应的繁体中文。</para>
+                <para>上述步骤，很明显，可以省略了去BIG5编码表中查找，而直接利用上述简繁体转换的网站去实现转换，或者本地建立一个转换表，直接从输入的中文简体，得到输出的中文繁体，即可继续后续处理，而无需关注，在简体和繁体中，哪些是一样的写法，哪些是不一样的写法。</para>
+            </sect4>
+        </sect3>
+    
+        <sect3 xml:id="python_str_decode"><title>str的解码decode</title>
+            <para>decode函数，是str类型变量本身就有的函数，用于实现将某种编码的字符，解码为Unicode类型字符。</para>
+            <para>将某种编码的str字符解码为Unicode字符，通常做法为：</para>
+            <programlisting language="python">
+defCmtCharset = "GB18030";
+dataJsonStrUni = dataJsonStr.decode(defCmtCharset);
+            </programlisting>
+            <para>不过，上述用法，是在你知道了字符编码的前提下，才能这么做的。</para>
+            <para>如果是对于输入的字符串，可能是多种不同的编码，即无法确定输入字符编码的前提下，想要对其解码的话，可以这么实现：</para>
+            <para>先利用chardet判断字符编码类型，然后再去解码：</para>
+            <programlisting language="python">
+possibleCharset = crifanLib.getStrPossibleCharset(dataJsonStr);
+dataJsonStrUni = dataJsonStr.decode(possibleCharset);
+            </programlisting>
+            <para>其中getStrPossibleCharset是我自己写的函数，详见：<xref linkend="python_crifanlib_getStrPossibleCharset" /></para>
+            <para>但是，有时候，你会发现，即使如此，也可能遇到decode失败的情况。</para>
+            <para>因为有时候所输入的字符串，本身不完全是某种单一的编码，而是2种或更多种不同的编码的混合体，此时，此处通过getStrPossibleCharset中的chardet所得到的值，就未必是0.99,而可能是某个很低的值，比如0.6，此时用此编码去解码，就可能遇到失败的情况了。</para>
+            <para>这种变态的，多种编码混合的字符串，我之前就在折腾给<link xl:href="http://www.crifan.com/crifan_released_all/website/python/blogstowordpress/">BlogsToWordpress</link>添加QQ空间支持的过程中，处理QQ空间帖子的评论数据中，就遇到过。</para>
+            <para>当时很是郁闷，无法有效解决此问题，导致对于有些帖子的评论数据，无法继续处理。</para>
+            <para>直到后来，直到对于decode函数来说，还有个ignore参数，可以实现，在解码过程中，对于那些（用当前编码）无法解码的，不支持的字符，采取忽略的策略，而使得不会出现解码失败，然后最终可以成功解码整个字符串。</para>
+            <para>对应的函数详细解释，在Python的帮助文档中可以找到：</para>
+            <blockquote>
+                <formalpara><title>str.decode([encoding[, errors]])</title>
+                    <para>Decodes the string using the codec registered for encoding. encoding defaults to the default string encoding. errors may be given to set a different error handling scheme. The default is 'strict', meaning that encoding errors raise UnicodeError. Other possible values are 'ignore', 'replace' and any other name registered via codecs.register_error(), see section Codec Base Classes.</para>
+                    <para>New in version 2.2.</para>
+                    <para>Changed in version 2.3: Support for other error handling schemes added.</para>
+                    <para>Changed in version 2.7: Support for keyword arguments added.</para>
+                </formalpara>
+            </blockquote>
+            <para>然后，上述的代码，改为：</para>
+            <programlisting language="python">
+defCmtCharset = "GB18030";
+dataJsonStrUni = dataJsonStr.decode(defCmtCharset, 'ignore');
+            </programlisting>
+            <para>即可实现，对于绝大多数的GB18030的中文字符，都可以正确解码为Unicode字符了。</para>
+            <para>即使遇到一些变态的混合型编码的字符（比如其中一部分是ISO-8859-2编码，其他部分是其他的某种编码），也不会出现decode出错，而使得代码可以继续运行了。</para>
+            <para>当然，需要注意一点的是，我这里，其中被ignore的个别特殊字符，由于是在评论的数据中的个别特殊字符，所以不重要，忽略了也无所谓，所以才可以使用ignore参数的。要是你的代码中，不允许忽略任何内容，那你就得想其他办法了。</para>
+        </sect3>
+    </sect2>
+</sect1>
+
+<sect1 xml:id="python_ext_libs"><title>Python中第三方模块的使用心得</title>
+    <para>前面已经说了，其实学习Python的过程，很多时候就是在学习如何使用第三方模块，完成自己需要的功能。</para>
+    
+    <sect2><title>去哪找python的第三方类库</title>
+        <para>关于Python的第三方库类库，其实网上很多很多相关资料。</para>
+        <para>其中，官网的Python库：<link xl:href="http://pypi.python.org/pypi/">Python Package Index</link>，其中有N多N多的库，有需要的人，可以去那里找找。</para>
+        <para></para>
+        <para>其他的网上的N多资源中，我觉得值得看看的有：</para>
+        <orderedlist>
+            <listitem><link xl:href="http://www.elias.cn/Python/HomePage" />中的<emphasis>3.3 用第三方类库</emphasis>的部分。</listitem>
+        </orderedlist>
+    </sect2>
+    
+    <para>下面就来总结一下，个人对于一些第三方模块的使用心得。</para>
+    
+    <sect2 xml:id="python_lib_beautifulsoup"><title>BeautifulSoup</title>
+        <sect3 xml:id="beautifulsoup_intro"><title>BeautifulSoup模块简介</title>
+            <para>Python的BeautifulSoup模块，可以帮助你实现HTML和XML的解析</para>
+            <para>先说一下，一般写网页爬虫，即抓取网页的html源码等内容，然后分析，提取相应的内容。</para>
+            <para>这种分析html内容的工作，如果只是用普通的正则表达式re模块去一点点匹配的话，对于内容简单点的网页分析，还是基本够用。</para>
+            <para>但是对于工作量很大，要分析的内容很繁杂的html，那么用re模块，就会发现无法实现，或很难实现。</para>
+            <para>而使用beautifulsoup模块去帮你实现分析html源码的工作的话，你就会发现，事情变得如此简单，极大地提高了分析html源码的效率。</para>
+            <para>比如我这里的想要<link xl:href="http://www.crifan.com/crifan_released_all/website/python/blogstowordpress/">实现博客搬家</link>之前，想要抓取对应的博客中的内容，就需要先去打开一个URL地址，去解析其中的内容，找到第一个固定链接，然后一点点分析HTML中的内容，抓去下来，导出wordpress所需要的xml文件等。</para>
+            <para>这其中对于HTML的分析，就可以利用BeautifulSoup这个模块了。</para>
+            <para>更多内容参见"Beautiful Soup 中文文档"</para>
+            <para>其中，原先链接：</para>
+            <para><link xl:href="http://www.crummy.com/software/BeautifulSoup/documentation.zh.html" /></para>
+            <para>已失效，最新的可用的地址是：</para>
+            <para><link xl:href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html" /></para>
+            <para>想要下载的话，这是BeautifulSoup的官网，其中可以下载到最新的版本：</para>
+            <para><link xl:href="http://www.crummy.com/software/BeautifulSoup/" /></para>
+            <para>下面就介绍一些Beautifulsoup使用过程中的心得和注意事项：</para>
+        </sect3>
+
+        <sect3 xml:id="beautifulsoup_invalid_html"><title>BeautifulSoup有时候会遇到非法的，不支持的html源码而导致无法解析或无法正常解析html</title>
+            <para>在使用Beautifulsoup过程中，对于大多数html源码，通过指定正确的编码，或者本身是默认UTF-8编码而无需指定编码类型，其都可以正确解析html源码，得到对应的soup变量。</para>
+            <para>然后就接着去利用soup实现你所想要的功能了。</para>
+            <para>但是有时候会发现，有些html解析后，有些标签等内容丢失了，即所得到的soup不是所期望的完整的html的内容。</para>
+            <para>这时候，很可能遇到了非法的html，即其中可能包含了一些不合法的html标签等内容，导致Beautifulsoup虽然可以解析，没有报错，但是实际上得到的soup变量，内容缺失了一部分了。</para>
+            <para>比如我就遇到过不少这样的例子：</para>
+            <orderedlist>
+                <listitem>部分Blogbus的帖子的html中非html5和html5的代码混合导致Beautifulsoup解析错误
+                    <para>之前在<link xl:href="http://www.crifan.com/record_add_blogbus_for_blogstowordpress/">为BlogsToWordPress添加Blogbus支持</link>过程中去解析Blogbus的帖子的时候，遇到一个特殊的帖子：<link xl:href="http://ronghuihou.blogbus.com/logs/89099700.html" />，其中一堆的非html5的代码中，包含了这样一段html5的代码的写法，即标签属性值不加括号的：</para>
+                    <programlisting language="html">
+<![CDATA[
+<SCRIPT language=JavaScript> 
+document.oncontextmenu=new Function("event.returnValue=false;"); //禁止右键功能,单击右键将无任何反应 
+document.onselectstart=new Function( "event.returnValue=false;"); //禁止先择,也就是无法复制 
+</SCRIPT language=JavaScript>
+]]>
+                    </programlisting>
+                    <para>结果导致Beautifulsoup解析错误，得到的soup中，找不到所需要的各种class等属性值。</para>
+                    <para>对应的解决办法就是，把这部分的代码删除掉，然后再解析就可以了：</para>
+                    <para>其中一堆的非html5的代码中，包含了这样一段html5的代码的写法，即标签属性值不加括号的：</para>
+                    <programlisting language="python">
+<![CDATA[
+foundInvliadScript = re.search("<SCRIPT language=JavaScript>.+</SCRIPT language=JavaScript>", html, re.I | re.S );
+logging.debug("foundInvliadScript=%s", foundInvliadScript);
+if(foundInvliadScript):
+    invalidScriptStr = foundInvliadScript.group(0);
+    logging.debug("invalidScriptStr=%s", invalidScriptStr);
+    html = html.replace(invalidScriptStr, "");
+    logging.debug("filter out invalid script OK");
+
+soup = htmlToSoup(html);
+]]>
+                    </programlisting>
+                </listitem>
+                <listitem>判断浏览器版本的相关代码，导致Beautifulsoup解析不正常
+                    <para>之前在给<link xl:href="http://www.crifan.com/crifan_released_all/website/python/blogstowordpress/">BlogsToWordpress</link>添加新浪博客的支持的过程中</para>
+                    <para>遇到很多新浪博客的帖子的html中，包含很多判断浏览器版本的相关代码：</para>
+                    <programlisting language="html">
+<![CDATA[
+<!–[if lte IE 6]>
+xxx
+xxx
+<![endif]–>
+]]>
+                    </programlisting>
+                    <para>由此导致Beautifulsoup解析html不正常。</para>
+                </listitem>
+                <listitem>font标签嵌套层次太多，导致Beautifulsoup无法解析html
+                    <para>接上面那个解析新浪博客帖子的例子，期间又遇到另外一个问题，对于一些特殊帖子：<link xl:href="http://blog.sina.com.cn/s/blog_5058502a01017j3j.html" /></para>
+                    <para>其包含特殊的好几十个font标签且是一个个嵌套的代码，导致无法Beautifulsoup无法解析html，后来把对应嵌套的font标签删除掉，才可以正常解析。</para>
+                    <para>相关python代码为：</para>
+                    <programlisting language="python">
+<![CDATA[
+# handle special case for http://blog.sina.com.cn/s/blog_5058502a01017j3j.html
+processedHtml = processedHtml.replace('<font COLOR="#6D4F19"><font COLOR="#7AAF5A"><font COLOR="#7AAF5A"><font COLOR="#6D4F19"><font COLOR="#7AAF5A"><font COLOR="#7AAF5A">', "");
+processedHtml = processedHtml.replace("</FONT></FONT></FONT></FONT></FONT></FONT>", "");
+]]>
+                    </programlisting>
+                </listitem>
+            </orderedlist>
+            
+            <para>遇到其他类似的问题，也可以去删除或替换出错代码，即可解决问题。</para>
+            <para>不过需要说明的是，很多时候，你未必很容易就找到出错的代码。</para>
+            <para>想要找到出错的代码，更多的时候，需要你一点点调试，一点点的删除看似可疑的一些html源码，然后最终才能定位到出错的代码，然后删除掉后，才可以正常工作的。</para>
+        </sect3>
+        
+        <sect3 xml:id="beautifulsoup_tag_attr"><title>BeautifulSoup的Tag的属性</title>
+            <para>BeautifulSoup处理这种html源码：</para>
+            <programlisting language="html"><![CDATA[<a href="http://creativecommons.org/licenses/by/3.0/deed.zh" target="_blank">版权声明</a>]]></programlisting>
+            <para>后，是可以通过</para>
+            <programlisting>soup.a['href']</programlisting>
+            <para>去获得对应的href属性值的。</para>
+            <para>但是，想要去获得当前的某个未知的BeautifulSoup.Tag中，一共存在多少个属性，以及每个属性的值的时候，却不知道如何下手了。</para>
+            <para>比如对于如下html源码：</para>
+            <programlisting language="html"><![CDATA[<p class="cc-lisence" style="line-height:180%;">......</p>]]></programlisting>
+            <para>想要得知，一共有两个属性，分别是class和style，然后就可以通过上面的方法，去获得对应的属性值了。</para>
+            <para>对此问题，虽然看到了官网的解释：<link xl:href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html#The%20attributes%20of%20Tags">Tags的属性</link>中的<quote>你可以将Tag看成字典来访问标签的属性</quote></para>
+            <para>但是还是无法通过：</para>
+            <programlisting>if("class" in soup)</programlisting>
+            <para>的方式去判断soup中是否存在class属性，因为此时soup是Beautifulsoup.Tag类型变量，而不是dict变量。</para>
+            <para>并且，如果去强制将soup转换成为dict变量：</para>
+            <programlisting>soupDict = dict(soup)</programlisting>
+            <para>会报错的。</para>
+            <para>最后，还是无意间发现，原来Beautifulsoup.Tag是有个attrs属性的，其可以获得对应的元组列表，每一个元组是对应属性名和属性值：</para>
+            <programlisting>
+attrsList = soup.attrs;
+print "attrsList=",attrsList;
+            </programlisting>
+            <screen>attrsList= [(u'class', u'cc-lisence'), (u'style', u'line-height:180%;')]</screen>
+            <para>这样，就可以从元组列表中，自己去转换，获得属性的列表或字典变量了，就可以接着按照自己意愿去处理了。</para>
+            <para></para>
+            <tip>
+                <para>另外，此处也通过<screen>soup.name</screen>获得了该tag的名字</para>
+                <para>而想要获得整个soup变量所有的属性和方法的话，可以用经典的dir去打印出来:</para>
+                <programlisting>print "dir(soup)=",dir(soup);</programlisting>
+                <para>此处的打印输出为：</para>
+                <screen>
+dir(soup)= ['BARE_AMPERSAND_OR_BRACKET', 'XML_ENTITIES_TO_SPECIAL_CHARS', 'XML_SPECIAL_CHARS_TO_ENTITIES', '__call__', '__contains__', '__delitem__', '__doc__', '__eq__', '__getattr__', '__getitem__', '__init__', '__iter__', '__len__', '__module__', '__ne__', '__nonzero__', '__repr__', '__setitem__', '__str__', '__unicode__', '_convertEntities', '_findAll', '_findOne', '_getAttrMap', '_invert', '_lastRecursiveChild', '_sub_entity', 'append', 'attrMap', 'attrs', 'childGenerator', 'containsSubstitutions', 'contents', 'convertHTMLEntities', 'convertXMLEntities', 'decompose', 'escapeUnrecognizedEntities', 'extract', 'fetch', 'fetchNextSiblings', 'fetchParents', 'fetchPrevious', 'fetchPreviousSiblings', 'fetchText', 'find', 'findAll', 'findAllNext', 'findAllPrevious', 'findChild', 'findChildren', 'findNext', 'findNextSibling', 'findNextSiblings', 'findParent', 'findParents', 'findPrevious', 'findPreviousSibling', 'findPreviousSiblings', 'first', 'firstText', 'get', 'has_key', 'hidden', 'insert', 'isSelfClosing', 'name', 'next', 'nextGenerator', 'nextSibling', 'nextSiblingGenerator', 'parent', 'parentGenerator', 'parserClass', 'prettify', 'previous', 'previousGenerator', 'previousSibling', 'previousSiblingGenerator', 'recursiveChildGenerator', 'renderContents', 'replaceWith', 'setup', 'substituteEncoding', 'toEncoding']
+                </screen>
+                <para>有需要的话，可以对这些属性和方法，都尝试一下，以便更加清楚其含义。</para>
+                <para>刚写完上面这句话呢，然后自己随便测试了一下attrMap：</para>
+                <programlisting language="python">
+attrMap = soup.attrMap;
+print "attrMap=",attrMap;
+                </programlisting>
+                <para>然后就很惊喜的发现，原来此处的attrMap，就是我程序中所需要的属性的dict变量啊：</para>
+                <screen>attrMap= {u'style': u'line-height:180%;', u'class': u'cc-lisence'}</screen>
+                <para>这样，就又省去了我程序中将attrs转换为dict变量的操作了，更加提高了效率。在次感谢Beautifulsoup的开发者。</para>
+            </tip>
+        </sect3>
+        
+        <sect3 xml:id="beautifulsoup_find_re_para"><title>BeautifulSoup中使用find，findAll等函数时，除了字符串外，也可以用正则表达式作为参数</title>
+            <para>在使用Beautifulsoup的find/finaAll等函数时候，常见用法都是传递字符串本身，比如：</para>
+            <programlisting language="python">
+foundIncontentTitle = lastItem.find(attrs={"class":"a-incontent a-title"});
+            </programlisting>
+            <para>可以找到：</para>
+            <screen>
+<![CDATA[
+<a href="/serial_story/item/7d86d17b537d643c70442326" class="a-incontent a-title" target=_blank>I/O-Programming_HOWTO(上)zz</a>
+]]>
+            </screen>
+            <para>中的值。</para>
+            <para>但是却无法匹配：</para>
+            <screen>
+<![CDATA[
+<a href="/serial_story/item/0c450a1440b768088fbde426" class="a-incontent a-title cs-contentblock-hoverlink" target="_blank">为什么幸运的人总幸运倒霉的人老倒霉-1   斯宾塞·约翰逊著</a>
+]]>
+            </screen>
+            <para>即，class的值是：a-incontent a-title cs-contentblock-hoverlink，而不仅仅是a-incontent a-title</para>
+            <para>此时，如果想要匹配才class，使用传统的方法，则需要写两个find去匹配，而后来得知，原来find/findAll等函数的参数中，也可以使用正则表达式的，所以就用了：</para>
+            <programlisting language="python">
+titleP = re.compile("a-incontent a-title(\s+?\w+)?");# also match a-incontent a-title cs-contentblock-hoverlink
+foundIncontentTitle = lastItem.find(attrs={"class":titleP});
+            </programlisting>
+            <para>就可以一次性匹配，a-incontent a-title，a-incontent a-title cs-contentblock-hoverlink，以及未来更多可能的a-incontent a-title xxx了。</para>
+            <para>感叹一句，Beautifulsoup，做的的确很好用，特此感谢作者。</para>
+        </sect3>
+    </sect2>
+</sect1>
+
+</chapter>

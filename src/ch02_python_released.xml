@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch02_python_released">
+<title>已发布的Python的相关资料</title>
+
+<para>之前自己折腾了很多Python方面的东西。</para>
+<para>然后，后来就整理出了很多东西：</para>
+<itemizedlist>
+    <listitem>系列教程
+        <para>将相关的内容，整理成系列的教程：</para>
+        <orderedlist>
+            <listitem>Python初级教程
+                <para>详见：<xref linkend="python_beginner_tutorial" /></para>
+                <para></para>
+            </listitem>
+            <listitem>Python中级教程
+                <para>详见：<xref linkend="python_intermediate_tutorial" /></para>
+                <para></para>
+            </listitem>
+            <listitem>Python高级教程
+                <para>详见：<xref linkend="python_advanced_tutorial" /></para>
+                <para></para>
+            </listitem>
+        </orderedlist>
+    </listitem>
+    <listitem>库函数：<emphasis>crifanLib.py</emphasis>
+        <para>将一些常用的功能，整理成通用的函数。</para>
+        <para>最终形成了自己的python的库函数</para>
+        <para>详见：</para>
+        <para><link xl:href="http://www.crifan.com/files/doc/docbook/crifanlib_python/release/htmls/">详解crifan的Python库：crifanLib.py</link></para>
+    </listitem>
+</itemizedlist>
+
+<sect1 xml:id="python_beginner_tutorial"><title>python初级教程：入门详解</title>
+    <para>关于Python方面的基础知识已移至：</para>
+    <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_beginner_tutorial/release/htmls/">python初级教程：入门详解</link></para>
+    <para>包括下载合适版本的Python，安装Python等等内容。</para>
+    <note xml:id="how_run_python"><title>如何使用和运行Python脚本</title>
+        <para>之前的，如何使用和运行Python脚本，也已移至：</para>
+        <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_beginner_tutorial/release/htmls/">python初级教程：入门详解</link></para>
+        <para>中的对应位置：</para>
+        <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_beginner_tutorial/release/htmls/python_dev_env.html#use_python_under_windows">如何在Windows环境下使用Python脚本</link></para>
+        <para>和：</para>
+        <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_beginner_tutorial/release/htmls/run_python_under_mac.html">如何在Mac环境下运行Python脚本</link></para>
+        <para></para>
+    </note>
+</sect1>
+
+<sect1 xml:id="python_intermediate_tutorial"><title>python中级教程：开发总结</title>
+    <para>后来，又整理了出了，开发过程中很多的心得，</para>
+    <para>然后把所有内容都放进了对应的教程：</para>
+    <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_intermediate_tutorial/release/htmls/">python中级教程：开发总结</link></para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="python_advanced_tutorial"><title>Python高级教程</title>
+    <para>接着，对于Python，相对的一些知识点，专门整理出了一系列的教程，算是高级教程系列。</para>
+    <para>目前已有：</para>
+    <itemizedlist>
+        <listitem><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_str_encoding/release/htmls/">Python专题教程：字符串和字符编码</link></listitem>
+        <listitem><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_web_scrape/release/htmls/">Python专题教程：抓取网站，模拟登陆，抓取动态网页</link></listitem>
+        <listitem><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_re/release/htmls/">Python专题教程：正则表达式re模块详解</link></listitem>
+        <listitem><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_beautifulsoup/release/htmls/">Python专题教程：BeautifulSoup详解</link></listitem>
+    </itemizedlist>
+    <para></para>
+</sect1>
+
+</chapter>

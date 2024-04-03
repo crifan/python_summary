@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<bibliography
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="reference">
+
+<bibliomixed xml:id="ref.python_basics_zhcn">
+  <bibliosource><link xl:href="http://www.tsnc.edu.cn/default/tsnc_wgrj/doc/python/basic.htm">Python基础篇</link></bibliosource>
+  <author>Jims of 肥肥世家</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.big5_tw_code_table">
+  <bibliosource><link xl:href="http://ash.jp/code/cn/big5tbl.htm">Big5 (Traditional Chinese) character code table</link></bibliosource>
+  <author>ash.jp</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.zhcn_zhtw_conversion">
+  <bibliosource><link xl:href="http://www.j4.com.tw/big-gb/">简繁转换</link></bibliosource>
+  <author>j4</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.unicode_lookup">
+  <bibliosource><link xl:href="http://unicodelookup.com/">Unicode Lookup</link></bibliosource>
+  <author>Jonathan Hedley</author>
+</bibliomixed>
+
+</bibliography>

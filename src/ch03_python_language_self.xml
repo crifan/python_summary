@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch03_python_language_self">
+<title>Python语言本身的理解和心得</title>
+
+<para>此处整理一下，关于Python语言本身，这方面的心得和体会：</para>
+<para></para>
+
+<sect1 xml:id="learn_python_modules"><title>学习python的本质就是学习对应的各种模块的用法</title>
+    <para>python中有很多其他的库，帮你实现各种需要的功能，而你要做的事情，就是import对应的库，然后调用对应的函数即可。</para>
+    <para>而利用python去编程，去实现一定的功能，更多的层面上，除了学习完python的基本语法之后，就是对各种库，各种模块的如何使用上了，可以极大地提高你做事情的效率。</para>
+</sect1>
+
+<sect1 xml:id="python_code_format"><title>Python代码的格式化</title>
+    <para>python中，没有（类似于其他语言可用的，比如SourceFormatX之类的）代码格式话工具，即意味着，你无法用工具，打开python文件，直接点击某个按钮，就可以帮你全部格式化好了。</para>
+    <para>只能通过手工去格式化你的python代码</para>
+    <para>所谓手工，那就是，把属于每个函数（def关键字）所属代码，按照自己对代码的内在逻辑的理解，去一行行的缩进</para>
+    <para>此工作，目前只能手工做，好像也没有其他更加方便的方法。</para>
+    <para>单独针对手工一行行的处理python代码，不同的工具中，实现的效率也会不同。</para>
+    <para>推荐使用Notepad++，因为此软件有很多方便你格式化Python代码的功能：</para>
+    <itemizedlist>
+        <listitem>可以显示所有特殊字符，包括空格，TAB键，行尾符等
+            <para>具体参考：<link xl:href="http://www.crifan.com/files/doc/docbook/crifan_rec_soft/release/html/crifan_rec_soft.html#npp_func_show_special_char">Notepad++支持显示回车符，换行符，TAB键，行首，行尾等特殊字符</link></para>
+        </listitem>
+        <listitem>支持将TAB键自动转换为空格
+            <para>目的在于，对于Python这样的语言，是靠缩进来决定代码逻辑的，所以对于缩进，TAB键和（4个连续的）空格，两者之间不是等价的，会产生语法错误的。</para>
+            <para>此时就可以利用Notepad++的，将TAB键自动转为（默认为4个，可以自定义个数）空格，实现很方便的代码格式化。</para>
+            <para>具体参考：<link xl:href="http://www.crifan.com/files/doc/docbook/crifan_rec_soft/release/html/crifan_rec_soft.html#npp_func_space_replace_tab">Notepad++支持用空格取代TAB键</link></para>
+        </listitem>
+    </itemizedlist>
+    <para>总之，关于Python代码的格式化，需要手动处理Python代码，而用Notepad++去处理，可以极大地提高效率。</para>
+</sect1>
+
+<sect1 xml:id="compile_pyc_from_py"><title>将py文件编译成pyc</title>
+    <para>参考<link xl:href="http://hi.baidu.com/%C1%AC%BF%B419%BC%AF/blog/item/2e3197dd8c209be476c63825.html">这里</link>，启动Python的IDE – IDLE (Python GUI)</para>
+    <para>然后在里面输入：</para>
+    <programlisting>import py_compile</programlisting>
+    <para>回车（<phrase role="symbol">&crarr;</phrase>）后再输入：</para>
+    <programlisting>py_compile.compile(r"E:\dev_root\Python25\Lib\sgmllib.py")</programlisting>
+    <para>就可以将对应的py文件编译成pyc了，生成的<filename>sgmllib.pyc</filename>在同目录下。</para>
+</sect1>
+
+<sect1 xml:id="var_non_editable_in_loop"><title>for循环中的变量是只读的，不可修改</title>
+    <para>在使用for循环时，要注意其所得的单个变量，是只读的，不能修改。</para>
+    <para>想要修改其值的话，只能借助其他变量实现。</para>
+    <para>示例代码如下：</para>
+    <programlisting language="python">
+<![CDATA[
+for singleContent in soupContents: #singleContent is BeautifulSoup.Tag
+    ......
+    if(recursive):
+        ......
+        filteredSingleContent = singleContent; # here must use another tmp value to store changed value
+        filteredSubContentList = removeSoupContentsTagAttr(filteredSingleContent.contents, ......);
+        ......
+        filteredSingleContent.contents = filteredSubContentList; # here if use singleContent.contents = filteredSubContentList will cause error !!!
+        #logging.debug("[%d] after filter, sub contents=%s", currentLevel, filteredSingleContent);
+        filtedContents.append(filteredSingleContent);
+    else:
+        ......
+]]>
+    </programlisting>
+    <para></para>
+</sect1>
+
+</chapter>

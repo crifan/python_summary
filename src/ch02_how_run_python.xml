@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="how_run_python">
+<title>如何使用和运行Python脚本</title>
+
+    <sect1 xml:id="use_python_under_windows"><title>如何在Windows环境下使用Python脚本</title>
+        <para>首先要说明的是，据我目前的了解，对于一般Windows的用户来说，想要使用已有的Python脚本的话，主要有两种形式可以使用。</para>
+        <orderedlist>
+            <listitem>直接运行文本式的Python脚本文件
+                <para>我们所常见的，多数的Python脚本，都是此形式的。而关于Python脚本，其实就是一个文本文件，你可以用任何一个文本编辑器，比如windows的<filename>Notepad.exe</filename>来打开对应的后缀名为.py的文件，比如我所发布的，用于博客搬家到wordpress的Python脚本<filename>BlogsToWordpress.py</filename></para>
+                <para>而对于在Windows的命令行，即<command>cmd</command>下运行Python脚本，用起来，就是这个样子的：</para>
+                <figure xml:id="fg.run_python_in_cmd"><title>在Windows下的cmd下面运行Python脚本的样子</title>
+                    <mediaobject>
+                        <imageobject role="html">
+                            <imagedata fileref="images/windows_cmd_run_python_script.jpg" align="left" scalefit="0" width="100%" />
+                        </imageobject>
+                        <imageobject role="fo">
+                            <imagedata fileref="images/windows_cmd_run_python_script.jpg" align="center" scalefit="1" width="100%"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <note><title>Windows的cmd下运行Python脚本，不是在Python的Command Line工具下运行Python脚本</title>
+                    <para>对于此用法不太熟悉的新手，需要注意一点的是，不要把，在Windows下的cmd中运行Python脚本，和在Python（安装好后自带有的）Command Line去写Python代码，运行Python代码，相混淆了</para>
+                    <para>对于Python的Command Line，以我此处Python 2.7为例，是从开始菜单中找到的：开始菜单 &rArr; Python 2.7 &rArr; Python (Command Line)，如图：</para>
+                    <figure xml:id="fg.start_menu_python_command_line"><title>开始菜单中找到的Python (Command Line)</title>
+                        <mediaobject>
+                            <imageobject role="html">
+                                <imagedata fileref="images/python_command_line_from_startup.jpg" align="left" scalefit="0" width="100%" />
+                            </imageobject>
+                            <imageobject role="fo">
+                                <imagedata fileref="images/python_command_line_from_startup.jpg" align="center" scalefit="1" width="50%"/>
+                            </imageobject>
+                        </mediaobject>
+                    </figure>
+                    <para>其打开后的效果如下：</para>
+                    <figure xml:id="fg.python_command_line_gui"><title>Python (Command Line)的界面</title>
+                        <mediaobject>
+                            <imageobject role="html">
+                                <imagedata fileref="images/python_command_line_screenshot.jpg" align="left" scalefit="0" width="100%" />
+                            </imageobject>
+                            <imageobject role="fo">
+                                <imagedata fileref="images/python_command_line_screenshot.jpg" align="center" scalefit="1" width="90%"/>
+                            </imageobject>
+                        </mediaobject>
+                    </figure>
+                </note>
+            </listitem>
+            <listitem>使用Python脚本发布者封装好的，可以独立运行的Python脚本对应的可执行文件
+                <para>此用法，必须要Python脚本发布者，专门在写完Python脚本的时候，专门去用相应的工具，将Python的文本文件，封装成可以脱离Python运行环境，可以独立运行的可执行文件。说白了，就是一个exe可执行文件，而运行此exe文件，不需要安装Python，即可运行。</para>
+            </listitem>
+        </orderedlist>
+
+        <sect2 xml:id="run_py_in_cmd"><title>如何在Windows下的cmd中运行<filename>BlogsToWordpress.py</filename></title>
+            <para>下面，以Win7为例，通过专门录制的gif动画，来说明，如何在Windows的cmd中，运行我的一个Python脚本：<filename>BlogsToWordpress.py</filename></para>
+            <figure xml:id="fg.animation_run_py_on_win_cmd"><title>动画演示如何在Windows的cmd中运行Python脚本<filename>BlogsToWordpress.py</filename></title>
+                <mediaobject>
+                    <imageobject role="html">
+                        <imagedata fileref="images/run_python_under_win_cmd.gif" align="left" scalefit="0" width="100%" />
+                    </imageobject>
+                    <imageobject role="fo">
+                        <imagedata fileref="images/run_python_under_win_cmd.gif" align="center" scalefit="1" width="100%"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <tip>
+                <para>上述gif动画演示，只支持HTML在浏览器中的显示。其他格式输出中，比如PDF中，不支持此gif动画。所以下面再用文字解释一下大概流程：<xref linkend="text_explain_run_py_in_cmd" /></para>
+                <para>如果你是在非HTML格式，比如PDF等，中查看此文，想要看动画的话，猛击<link xl:href="http://www.crifan.com/files/doc/docbook/language_summary/release/html/language_summary.html#fg.animation_run_py_on_win_cmd">动画演示如何在Windows的cmd中运行Python脚本BlogsToWordpress.py</link></para>
+            </tip>
+            <para>用文字简述就是：</para>
+            <formalpara xml:id="text_explain_run_py_in_cmd"><title>用文字解释如何在Windows的cmd中运行Python脚本BlogsToWordpress.py</title>
+                <orderedlist>
+                    <listitem>打开Windows的命令行环境cmd
+                        <para>开始  &rArr; 在"搜索程序和文件"的位置，输入<emphasis>cmd</emphasis>，win7会自动搜索到cmd，点击其以打开cmd</para>
+                    </listitem>
+                    <listitem>切换到对应的你的Python脚本所在位置
+                        <para>可以先去拷贝你的Python脚本所在的路径，此处为：<screen>E:\Dev_Root\svn_dev_root\website\python\BlogsToWordpress</screen>，然后在cmd中输入 
+                            <screen>
+E:
+cd E:\Dev_Root\svn_dev_root\website\python\BlogsToWordpress
+                            </screen>
+                        </para>
+                    </listitem>
+                    <listitem>输入脚本名（及参数），以运行Python脚本
+                        <para>输入相应的python脚本命令：<screen>BlogsToWordpress.py -s http://blog.sina.com.cn/lifecoaching</screen>然后回车运行该脚本</para>
+                    </listitem>
+                </orderedlist>
+            </formalpara>
+        </sect2>
+    </sect1>
+    <sect1 xml:id="run_python_under_mac"><title>如何在Mac环境下运行Python脚本</title>
+        <para>Mac下本身已经安装了Python，所以不需要额外安装Python，就可以直接在终端Terminal下去运行Python了。</para>
+        <para>在Mac下运行Python脚本的方法如下：</para>
+        <figure xml:id="fg.run_python_under_mac_terminal"><title>在Mac下的Terminal中运行Python脚本：BlogsToWordpress</title>
+            <mediaobject>
+                <imageobject role="html"><imagedata fileref="images/run_python_under_mac_terminal.png" align="left"   scalefit="0" width="100%"/></imageobject>
+                <imageobject role="fo">  <imagedata fileref="images/run_python_under_mac_terminal.png" align="center" scalefit="1" width="100%"/></imageobject>
+            </mediaobject>
+        </figure>
+    </sect1>
+</chapter>

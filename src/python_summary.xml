@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE book
+[
+
+<!ENTITY cur_book_name      "python_summary" >
+<!ENTITY publish_date       "2013-10-10" >
+<!ENTITY release_version    "2.0" >
+
+<!ENTITY copyrith_year "2013" >
+<!ENTITY entity_common_multi_format     SYSTEM  "../../entity_common_multi_format.xml">
+<!ENTITY entity_common_publish_info     SYSTEM  "../../entity_common_publish_info.xml">
+]>
+
+<book version="5.0"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:lang="zh_CN">
+
+<info>
+    <title>Python语言总结</title>
+    <subtitle></subtitle>
+    <keywordset>
+        <keyword>Python</keyword>
+        <keyword>Python语言本身</keyword>
+        <keyword>内置模块</keyword>
+        <keyword>第三方模块</keyword>
+        <keyword>参考资料</keyword>
+    </keywordset>
+
+    <abstract>
+        <para>本文主要介绍了个人目前已经发布整理的Python资料，以及和Python语言本身相关的总结，以及各种内置（str,unicode,json,OptionParser等）模块的总结，和第三方（Beautifulsoup等）库的总结，以及介绍Python方面的有价值的参考资料。</para>
+        &entity_common_multi_format;
+    </abstract>
+
+    <revhistory>
+        <revision>
+            <revnumber>&release_version;</revnumber>
+            <date>&publish_date;</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>把crifanLib.py独立出去称为单独的book</listitem>
+                    <listitem>把如何使用和运行Python脚本移至：python初级教程：入门详解</listitem>
+                    <listitem>重新整理此book的架构</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+        <revision>
+            <revnumber>2012-11-06</revnumber>
+            <date>1.2</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>将Python从language_summary移至此独立book</listitem>
+                    <listitem>添加了Python代码的格式化</listitem>
+                    <listitem>添加了BeautifulSoup中find参数可以为正则表达式</listitem>
+                    <listitem>添加了在Mac下运行Python脚本</listitem>
+                    <listitem>更新crifanLib.py的最新链接</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+    </revhistory>
+
+    &entity_common_publish_info;
+</info>
+
+<xi:include href="ch01_python_intro.xml" />
+<xi:include href="ch02_python_released.xml" />
+<xi:include href="ch03_python_language_self.xml" />
+<xi:include href="ch04_python_buildin_modules.xml" />
+<xi:include href="ch05_python_thirdparty_modules.xml" />
+<xi:include href="ch06_python_materials.xml" />
+<xi:include href="reference.xml" />
+
+</book>

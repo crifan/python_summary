@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch05_python_thirdparty_modules">
+<title>Python第三方模块学习心得</title>
+
+<para>此处整理Python的第三方的模块，库等的学习心得：</para>
+<para></para>
+
+<para>前面<xref linkend="learn_python_modules" />已经说了，</para>
+<para>其实学习Python的过程，很多时候就是在学习如何使用第三方模块，完成自己需要的功能。</para>
+<para>下面就来总结一下，关于，Python的第三方的模块方面的学习心得和体会：</para>
+
+<sect2 xml:id="where_find_thirdparty_lib"><title>去哪找python的第三方类库</title>
+    <para>关于Python的第三方库类库，其实网上很多很多相关资料。</para>
+    <para>其中，官网的Python库：<link xl:href="http://pypi.python.org/pypi/">Python Package Index</link>，其中有N多N多的库，有需要的人，可以去那里找找。</para>
+    <para></para>
+    <para>其他的网上的N多资源中，我觉得值得看看的有：</para>
+    <orderedlist>
+        <listitem><link xl:href="http://www.elias.cn/Python/HomePage" />中的<emphasis>3.3 用第三方类库</emphasis>的部分。</listitem>
+    </orderedlist>
+</sect2>
+
+<sect2 xml:id="python_lib_beautifulsoup"><title>BeautifulSoup</title>
+    <para>关于BeautifulSoup相关的内容已整理至独立教程：</para>
+    <para><link xl:href="http://www.crifan.com/files/doc/docbook/python_topic_beautifulsoup/release/html/python_topic_beautifulsoup.html">Python专题教程：BeautifulSoup详解</link></para>
+    <para></para>
+</sect2>
+
+</chapter>

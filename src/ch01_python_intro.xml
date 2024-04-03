@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch01_python_intro">
+<title>Python简介</title>
+    <sect1 xml:id="python_features"><title>Python的特点</title>
+        <orderedlist>
+            <listitem>不需要编译，即可运行</listitem>
+            <listitem>有很多特性，使得语言本身很方便编程者使用</listitem>
+        </orderedlist>
+    </sect1>
+</chapter>
